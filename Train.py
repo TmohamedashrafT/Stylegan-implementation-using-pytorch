@@ -30,7 +30,7 @@ class Training:
     self.dis    = Discriminator(channels).to(device)
     self.gen    = Generator(MLP_num,in_style , channels).to(device)
     self.st_epoch = 0
-    self.lambda   = 10
+    self.lambda_gp   = 10
     self.gen_opt = torch.optim.Adam(self.gen.parameters(), lr=lr, betas=(0.9,0.999))
     self.dis_opt = torch.optim.Adam(self.dis.parameters(), lr=lr, betas=(0.9,0.999))
     self.grow_rank = 0
@@ -66,7 +66,7 @@ class Training:
             real_pred_loss     = nn.functional.softplus(- real_pred).mean() 
             real_pred_loss.backward()
 
-            gradient_penalty_loss = self.lambda * gradient_penalty
+            gradient_penalty_loss = self.lambda_gp * gradient_penalty
             gradient_penalty.backward()
             self.dis_opt.step()
 
