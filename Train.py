@@ -1,6 +1,5 @@
 from tqdm import tqdm
 import torch.nn as nn
-from Config import cfg
 import warnings
 import os
 import torch
