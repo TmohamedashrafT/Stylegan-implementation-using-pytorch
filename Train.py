@@ -48,7 +48,7 @@ class Training:
         dis_total_loss = 0
         gen_total_loss = 0
         train_loader_iter = iter(self.train_loader)
-        for i in tqdm(len(self.train_loader), ascii = True, desc ="Training")):
+        for i in tqdm(range(len(self.train_loader)), ascii = True, desc ="Training"):
             real_imgs,_ = next(train_loader_iter)
             self.dis_opt.zero_grad()
             images_len = len(real_imgs)
