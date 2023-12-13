@@ -91,7 +91,7 @@ class genSynthesis_block(nn.Module):
     self.inj_noise_2 = inject_noise(block_channels)
     self.leaky_relu_2= nn.LeakyReLU(0.2)
     self.AdaIN_2     = AdaIN(in_style, block_channels) 
-    self.to_rgb      = EqualizedConv2d(block_channels, 1, 1,1,0)
+    self.to_rgb      = EqualizedConv2d(block_channels, 3, 1,1,0)
 
   def forward(self, x, w):
     if self.first_block:
@@ -133,7 +133,7 @@ class Dis_block(nn.Module):
                    EqualizedConv2d(block_channels, block_channels, 3, 1, 1),
                    nn.LeakyReLU(0.2),
                     )
-    self.from_rgb = EqualizedConv2d(1, in_block, 1, 1, 0)
+    self.from_rgb = EqualizedConv2d(3, in_block, 1, 1, 0)
     
   def forward(self, x):
     if self.last_block:
