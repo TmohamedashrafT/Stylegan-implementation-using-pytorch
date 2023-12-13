@@ -9,8 +9,8 @@ def visualize_output(fake_imgs):
   plt.imshow(np.transpose(vutils.make_grid(fake_imgs.detach().cpu(), normalize=True),(1,2,0)))
   plt.show()
 
-def get_style_mixing(batch_size, in_style, device, prop = 0.6):
-  style_mixing, z = (None, None) if random.random() > prop else (2, torch.randn(batch_size, in_style, device = device))
+def get_style_mixing(batch_size, in_style, device, num_layers = 1, prop = 0.8):
+  style_mixing, z = (None, None) if random.random() > prop else (num_layers, torch.randn(batch_size, in_style, device = device))
   return style_mixing, z
 
 def parse_yaml(path):
