@@ -176,7 +176,7 @@ if __name__ == "__main__":
                config['lr'],
                device,
                cfg['ckpt_path'],
-               opt.pretrained
+               opt.pretrained,
                opt.max_scale)
     training.train()
     
