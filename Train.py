@@ -1,9 +1,11 @@
 from tqdm import tqdm
 import torch.nn as nn
 from Config import cfg
-from Data_loader import get_loader
 import warnings
 import os
+import torch
+from Data_loader import get_loader
+from models import Discriminator, Discriminator
 from utils import visualize_output, get_style_mixing, parse_yaml
 warnings.filterwarnings("ignore")
 class Training:
@@ -142,8 +144,6 @@ class Training:
     self.gen_opt = torch.optim.Adam(self.gen.parameters(), lr = self.lr, betas=(0.9,0.999))
     self.dis_opt = torch.optim.Adam(self.dis.parameters(), lr = self.lr, betas=(0.9,0.999))
     self.grow_rank  += 1
-    if self.grow_rank == self.max_scale:
-        return False
   def save_model(self, epoch):
       ckpt = {'generator':self.gen.state_dict(),
             'discriminator':self.dis.state_dict(),
