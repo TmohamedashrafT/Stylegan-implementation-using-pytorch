@@ -12,7 +12,6 @@ class Training:
   def __init__(self,
                dataset_path,
                batch_size,
-               mn_std,
                MLP_num,
                in_style,
                channels,
@@ -25,7 +24,7 @@ class Training:
                output_size = 8):
     self.device = device
     self.in_style = in_style
-    self.loader = get_loader(dataset_path, batch_size, mn_std)
+    self.loader = get_loader(dataset_path, batch_size)
     self.train_loader = self.loader.grow()
     self.dis    = Discriminator(channels).to(device)
     self.gen    = Generator(MLP_num,in_style , channels).to(device)
