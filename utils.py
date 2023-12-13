@@ -7,7 +7,7 @@ import yaml
 import matplotlib
 
 def visualize_output(fake_imgs):
-  matplotlib.use('TkAgg')
+  matplotlib.use('qt4agg')
   plt.figure(figsize=(10,10))
   plt.imshow(np.transpose(vutils.make_grid(fake_imgs.detach().cpu(), normalize=True),(1,2,0)))
   plt.show()
