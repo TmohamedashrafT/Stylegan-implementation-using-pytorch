@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from custom_layers import genSynthesis_block, Dis_block, style_map
 class Generator(nn.Module):
-    def __init__(self, MLP_num, in_style, channels, in_channels):
+    def __init__(self, MLP_num, in_style, channels):
       super().__init__()
       self.in_style   = in_style
       self.style_map  = style_map(in_style, MLP_num)
