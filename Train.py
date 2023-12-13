@@ -28,7 +28,6 @@ class Training:
     self.train_loader = self.loader.grow()
     self.dis    = Discriminator(channels).to(device)
     self.gen    = Generator(MLP_num,in_style , channels).to(device)
-    self.st_epoch = 0
     self.lambda_gp   = 10
     self.gen_opt = torch.optim.Adam(self.gen.parameters(), lr=lr, betas=(0.9,0.999))
     self.dis_opt = torch.optim.Adam(self.dis.parameters(), lr=lr, betas=(0.9,0.999))
@@ -36,7 +35,6 @@ class Training:
     self.ckpt_path = ckpt_path if ckpt_path[-3:] == '.pt' else os.path.join(ckpt_path, 'last.pt') 
     self.pretrained= pretrained
     self.lr = lr
-    self.alpha = 0
     self.epochs  = epochs
     self.output_size = output_size
     self.max_scale = max_scale
@@ -45,14 +43,14 @@ class Training:
   def train_loop(self):
     trick = 1
     alpha_p = int(0.5 * self.epochs[self.grow_rank])
-    for epoch in range(self.st_epoch, self.epochs[self.grow_rank]):
+    for epoch in range(self.epochs[self.grow_rank]):
         dis_total_loss = 0
         gen_total_loss = 0
         for i,(real_imgs,_) in enumerate(tqdm(self.train_loader, ascii = True, desc ="Training")):
             self.dis_opt.zero_grad()
             images_len = len(real_imgs)
             real_imgs  = real_imgs.to(self.device)
-            self.alpha = min(1,trick  / alpha_p * len(self.train_loader)) if self.grow_rank > 1 else 1
+            self.alpha = min(1,trick  / alpha_p * len(self.train_loader)) if self.grow_rank > 0 else 1
             z = torch.randn(images_len, self.in_style, device = self.device)
             style_mixing, z2 = get_style_mixing(images_len, self.in_style, self.device)
 
@@ -87,13 +85,13 @@ class Training:
               ' Discriminator loss = ',  round(dis_total_loss.item(),3),
               ' Generator loss = ',        round(gen_total_loss.item(),3),
               )
-        self.save_model(epoch)
+        self.save_model()
 
 
   def train(self):
     #self.grow()
 
-    try:
+    
          while True:
             self.train_loop()
             continue_training = self.grow()
@@ -105,9 +103,7 @@ class Training:
             style_mixing, z2 = get_style_mixing(self.output_size , self.in_style, self.device)
             fake_imgs = self.gen(z, self.alpha , style_mixing, z2)
             visualize_output(fake_imgs)
-            self.st_epoch = 0
-    except:
-        pass
+
 
   def calculate_gradient_penalty(self, real_images, fake_images):
 
@@ -129,8 +125,6 @@ class Training:
     self.dis.load_state_dict(ckpt['discriminator'])
     self.gen_opt.load_state_dict(ckpt['generator_opt'])
     self.dis_opt.load_state_dict(ckpt['discriminator_opt'])
-    self.alpha    = ckpt['alpha']
-    self.st_epoch = ckpt['epoch']
     self.grow_rank = ckpt['grow_rank']
     del ckpt
   def grow(self):
@@ -143,14 +137,12 @@ class Training:
     self.gen_opt = torch.optim.Adam(self.gen.parameters(), lr = self.lr, betas=(0.9,0.999))
     self.dis_opt = torch.optim.Adam(self.dis.parameters(), lr = self.lr, betas=(0.9,0.999))
     self.grow_rank  += 1
-  def save_model(self, epoch):
+  def save_model(self):
       ckpt = {'generator':self.gen.state_dict(),
             'discriminator':self.dis.state_dict(),
             'generator_opt' :self.gen_opt.state_dict(),
             'discriminator_opt':self.dis_opt.state_dict(),
             'grow_rank' : self.grow_rank,
-            'alpha': self.alpha,
-            'epoch': epoch
             }
       torch.save(ckpt, self.ckpt_path)
       del ckpt
