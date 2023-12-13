@@ -5,7 +5,7 @@ import os
 import torch
 import argparse
 from Data_loader import get_loader
-from models import Discriminator, Discriminator
+from models import Discriminator, Generator
 from utils import visualize_output, get_style_mixing, parse_yaml
 warnings.filterwarnings("ignore")
 class Training:
