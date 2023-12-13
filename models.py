@@ -32,7 +32,7 @@ class Generator(nn.Module):
 
     
 class Discriminator(nn.Module):
-    def __init__(self, channels, in_channels):
+    def __init__(self, channels):
       super().__init__()
       self.channels   = channels
       self.dis_blocks = nn.ModuleList([Dis_block(channels[1], channels[0], last_block = True)])
