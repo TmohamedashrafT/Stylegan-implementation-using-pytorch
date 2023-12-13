@@ -90,19 +90,22 @@ class Training:
 
   def train(self):
     #self.grow()
-
-    
-         while True:
-            self.train_loop()
-            continue_training = self.grow()
-            if self.grow_rank == self.max_scale:
-                print('The maximum scale has been reached')
-                break
-            print(f'The final samples from scale {self.grow_rank+1}')
-            z = torch.randn(self.output_size , self.in_style, device = self.device)
-            style_mixing, z2 = get_style_mixing(self.output_size , self.in_style, self.device)
-            fake_imgs = self.gen(z, self.alpha , style_mixing, z2)
-            visualize_output(fake_imgs)
+    z = torch.randn(self.output_size , self.in_style, device = self.device)
+    style_mixing, z2 = get_style_mixing(self.output_size , self.in_style, self.device)
+    fake_imgs = self.gen(z, self.alpha , style_mixing, z2)
+    visualize_output(fake_imgs)
+    while True:
+      2
+      self.train_loop()
+      continue_training = self.grow()
+      if self.grow_rank == self.max_scale:
+         print('The maximum scale has been reached')
+         break
+      print(f'The final samples from scale {self.grow_rank+1}')
+      z = torch.randn(self.output_size , self.in_style, device = self.device)
+      style_mixing, z2 = get_style_mixing(self.output_size , self.in_style, self.device)
+      fake_imgs = self.gen(z, self.alpha , style_mixing, z2)
+      visualize_output(fake_imgs)
 
 
   def calculate_gradient_penalty(self, real_images, fake_images):
