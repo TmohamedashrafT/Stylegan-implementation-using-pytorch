@@ -3,7 +3,6 @@ import numpy as np
 import random
 import torch
 import yaml
-import matplotlib
 import cv2
 def visualize_output(fake_imgs, scale):
   img = np.transpose(vutils.make_grid(fake_imgs.detach().cpu(), normalize=True),(1,2,0))
