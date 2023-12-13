@@ -6,7 +6,7 @@ import yaml
 import matplotlib.pyplot as plt
 def visualize_output(fake_imgs, scale):
   plt.figure(figsize=(10,10))
-  img = np.transpose(vutils.make_grid(fake_imgs.detach().cpu(), normalize=True),(1,2,0))
+  plt.imshow(np.transpose(vutils.make_grid(fake_imgs.detach().cpu(), normalize=True),(1,2,0)))
   plt.savefig(f"Samples from scale {scale}.png") 
 
 def get_style_mixing(batch_size, in_style, device, num_layers = 1, prop = 0.8):
