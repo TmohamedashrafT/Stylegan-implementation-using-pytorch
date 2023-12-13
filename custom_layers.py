@@ -65,7 +65,13 @@ def minibatch_stddev_layer(x, group_size = 4, num_new_features = 1):
   y = torch.squeeze(y, dim=2)
   y = y.repeat(group_size, 1, x.shape[2], x.shape[3])
   return torch.cat([x,y],dim = 1)
+class inject_noise(nn.Module):
+  def __init__(self,noise_channels):
+    super().__init__()
+    self.weight = nn.Parameter(torch.zeros(1, noise_channels, 1, 1)) ## Learnable weight
 
+  def forward(self, x, noise):
+    return x + self.weight * noise
 
 class genSynthesis_block(nn.Module):
   def __init__(self, in_style, in_block, block_channels, first_block = False):
