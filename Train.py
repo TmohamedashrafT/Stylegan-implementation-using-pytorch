@@ -38,6 +38,7 @@ class Training:
     self.epochs  = epochs
     self.output_size = output_size
     self.max_scale = max_scale
+    self.alpha = 0
     if self.pretrained:
       self.load_ckpts_train()
   def train_loop(self):
