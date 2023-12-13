@@ -154,15 +154,15 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--cfg", type = str, default = "config/style_config.yaml", help = "cfg.yaml")  
     parser.add_argument("--pretrained", type = bool, default = False, help = "Resume trainin")  
-    parser.add_argument("--weights", type = str, default = None, help = "weights path")  
+    parser.add_argument("--weights-path", type = str, default = None, help = "weights path")
+    parser.add_argument("--dataset-path", type = str, default = None, help = "dataset_path")  
     parser.add_argument("--max-scale", type = int, default = 5, help = "max-scale")  
 
     opt = parser.parse_args()
     cfg = parse_yaml(opt.cfg)
     device   ='cuda' if torch.cuda.is_available() else 'cpu'
-    cfg['ckpt_path'] = opt.weights if opt.weights else cfg['ckpt_path']
     training = Training(
-              dataset_path =  cfg['dataset_path'],
+              dataset_path =  opt.dataset_path,
               batch_size   =  cfg['batch_size'],
               MLP_num      =  cfg['MLP_num'],
               in_style     = cfg['in_style'],
@@ -170,7 +170,7 @@ if __name__ == "__main__":
               epochs       =  cfg['epochs'],
               lr           = cfg['lr'],
               device       = device,
-              ckpt_path    =  cfg['ckpt_path'],
+              ckpt_path    =  opt.weights_path,
               pretrained   =  opt.pretrained,
               max_scale    =  opt.max_scale)
 
