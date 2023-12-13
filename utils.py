@@ -3,10 +3,11 @@ import numpy as np
 import random
 import torch
 import yaml
-import cv2
+import matplotlib.pyplot as plt
 def visualize_output(fake_imgs, scale):
+  plt.figure(figsize=(10,10))
   img = np.transpose(vutils.make_grid(fake_imgs.detach().cpu(), normalize=True),(1,2,0))
-  cv2.imread(f'Samples of scale {scale}',img)
+  plt.savefig(f"Samples from scale {scale}.png") 
 
 def get_style_mixing(batch_size, in_style, device, num_layers = 1, prop = 0.8):
   style_mixing, z = (None, None) if random.random() > prop else (num_layers, torch.randn(batch_size, in_style, device = device))
