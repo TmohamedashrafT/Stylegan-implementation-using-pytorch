@@ -94,7 +94,7 @@ class Training:
     z = torch.randn(self.output_size , self.in_style, device = self.device)
     style_mixing, z2 = get_style_mixing(self.output_size , self.in_style, self.device)
     fake_imgs = self.gen(z, self.alpha , style_mixing, z2)
-    visualize_output(fake_imgs)
+    visualize_output(fake_imgs,1)
     while True:
       2
       self.train_loop()
