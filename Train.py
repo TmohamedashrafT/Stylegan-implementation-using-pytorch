@@ -63,11 +63,11 @@ class Training:
             real_pred_loss     = nn.functional.softplus(- real_pred).mean() 
             real_pred_loss.backward()
 
-            gradient_penalty_loss = self.lambda_gp * gradient_penalty
-            gradient_penalty.backward()
+            gradient_penalty_l = self.lambda_gp * gradient_penalty
+            gradient_penalty_l.backward()
             self.dis_opt.step()
 
-            dis_total_loss += dis_loss
+            dis_total_loss += fake_pred_loss  +  real_pred_loss + gradient_penalty_l
             self.dis_opt.step()
             self.dis_opt.zero_grad()
             z = torch.randn(images_len, self.in_style, device = self.device)
