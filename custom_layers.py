@@ -32,7 +32,8 @@ class EqualizedLinear(nn.Module):
 
     def forward(self, x):
         return self.linear(x)
-
+def pixel_norm(z):
+  return z / (torch.mean(z**2,dim = 1, keepdim = True) + 1e-7) ** 0.5
 class style_map(nn.Module):
   def __init__(self, in_style = 512, MLP_num = 8):
     super().__init__()
