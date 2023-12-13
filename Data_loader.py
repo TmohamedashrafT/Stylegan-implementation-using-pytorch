@@ -22,7 +22,7 @@ class get_loader:
     self.dataset = ImageFolder(root = self.dataset_path, transform = dataset_transforms)
     
     train_loader = DataLoader(
-    self.dataset, batch_size = self.batch_size[self.img_size], shuffle=True, drop_last=True, num_workers=0,
+    self.dataset, batch_size = self.batch_size[self.img_size], shuffle=True, drop_last=True, num_workers=3,
                              )
     ## drop_last = True, becouse of minibatch_stddev_layer the input batch size should be Divisible
 
