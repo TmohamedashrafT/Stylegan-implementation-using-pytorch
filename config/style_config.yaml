@@ -1,0 +1,10 @@
+channels : [512, 512, 512, 512, 512, 256, 128, 64, 32, 16]
+batch_size: {4: 256,8: 128, 16: 64, 32: 32, 64: 16, 128: 8, 256: 4, 512: 2, 1024: 1}
+dataset_path : '/kaggle/input/gananime-lite/'
+MLP_num : 8
+in_style: 512
+lr : 0.001
+epochs : [4,8,8,8,8,8,8]
+lambda_gp: 10
+ckpt_path : '/kaggle/working/'
+pretrained: False
