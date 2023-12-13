@@ -1,7 +1,6 @@
 from torch.utils.data import DataLoader
 from torchvision.datasets import ImageFolder
 import torchvision.transforms as transforms
-from torchvision.datasets import FashionMNIST
 class get_loader:
   def __init__(self, dataset_path, batch_size, in_channels = 3):
     super().__init__()
@@ -17,7 +16,7 @@ class get_loader:
     dataset_transforms= transforms.Compose([
             transforms.Resize((self.img_size, self.img_size)),
             transforms.ToTensor(),
-            transforms.Normalize(*(0.5,)*self.in_channels, *(0.5,)*self.in_channels),
+            transforms.Normalize((0.5,)*self.in_channels, (0.5,)*self.in_channels),
             ])
     
     self.dataset = ImageFolder(root = self.dataset_path, transform = dataset_transforms)
