@@ -4,8 +4,6 @@ import random
 import torch
 import yaml
 import matplotlib
-import PyQt4
-matplotlib.use('qt4agg')
 import matplotlib.pyplot as plt
 def visualize_output(fake_imgs):
   plt.figure(figsize=(10,10))
