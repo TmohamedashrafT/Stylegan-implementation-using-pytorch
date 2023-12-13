@@ -31,7 +31,7 @@ class Generator(nn.Module):
       self.num_of_blocks += 1
 
     
- class Discriminator(nn.Module):
+class Discriminator(nn.Module):
     def __init__(self, channels, in_channels):
       super().__init__()
       self.channels   = channels
