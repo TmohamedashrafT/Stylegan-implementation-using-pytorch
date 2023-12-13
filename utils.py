@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import random
 import torch
 import yaml
+import matplotlib
+
 def visualize_output(fake_imgs):
   matplotlib.use('TkAgg')
   plt.figure(figsize=(10,10))
