@@ -166,17 +166,18 @@ if __name__ == "__main__":
     device   ='cuda' if torch.cuda.is_available() else 'cpu'
     cfg['ckpt_path'] = opt.weights if opt.weights else cfg['ckpt_path']
     training = Training(
-               cfg['dataset_path'],
-               cfg['batch_size'],
-               cfg['MLP_num'],
-               cfg['in_style'],
-               cfg['channels'],
-               cfg['epochs'],
-               cfg['lr'],
-               device,
-               cfg['ckpt_path'],
-               opt.pretrained,
-               opt.max_scale)
+              dataset_path =  cfg['dataset_path'],
+              batch_size   =  cfg['batch_size'],
+              MLP_num      =  cfg['MLP_num'],
+              in_style     = cfg['in_style'],
+              channels     =  cfg['channels'],
+              epochs       =  cfg['epochs'],
+              lr           = cfg['lr'],
+              device       = device,
+              ckpt_path    =  cfg['ckpt_path'],
+              pretrained   =  opt.pretrained,
+              max_scale    =  opt.max_scale)
+
     training.train()
     
     
