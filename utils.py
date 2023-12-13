@@ -5,12 +5,12 @@ import random
 import torch
 import yaml
 import matplotlib
+from IPython.display import Image
 
 def visualize_output(fake_imgs):
-  matplotlib.use('qt4agg')
   plt.figure(figsize=(10,10))
-  plt.imshow(np.transpose(vutils.make_grid(fake_imgs.detach().cpu(), normalize=True),(1,2,0)))
-  plt.show()
+  #plt.imshow(np.transpose(vutils.make_grid(fake_imgs.detach().cpu(), normalize=True),(1,2,0)))
+  Image(np.transpose(vutils.make_grid(fake_imgs.detach().cpu(), normalize=True),(1,2,0)))
 
 def get_style_mixing(batch_size, in_style, device, num_layers = 1, prop = 0.8):
   style_mixing, z = (None, None) if random.random() > prop else (num_layers, torch.randn(batch_size, in_style, device = device))
