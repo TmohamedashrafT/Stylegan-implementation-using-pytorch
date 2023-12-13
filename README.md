@@ -1,5 +1,15 @@
 # Stylegan-implementation-using-pytorch
 This repository contains code for training and generating fashion images using StyleGAN on the FashionMNIST dataset
+## Installation
+1.Clone the repository
+```
+git clone https://github.com/TmohamedashrafT/Stylegan-implementation-using-pytorch.git
+```
+2.Train
+```
+%cd Stylegan-implementation-using-pytorch
+python Train.py --dataset_path 'dataset_path' --weights_path 'weights_path'
+```
 
 ## StyleGan overview
 The progressive GAN journey continues with advancements in StyleGAN, showcasing improvements in the Generator architecture. These enhancements provide higher diversity, fidelity, and increased control over image synthesis. The new architecture empowers users to generate high-resolution images with greater precision and customization. Additionally, it introduces two new metrics, namely Perceptual Path Length and Linear Separability, aimed at evaluating the disentanglement and quality of the generated images
