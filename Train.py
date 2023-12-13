@@ -47,7 +47,9 @@ class Training:
     for epoch in range(self.epochs[self.grow_rank]):
         dis_total_loss = 0
         gen_total_loss = 0
-        for i,(real_imgs,_) in enumerate(tqdm(self.train_loader, ascii = True, desc ="Training")):
+        train_loader_iter = iter(self.train_loader)
+        for i in tqdm(len(self.train_loader), ascii = True, desc ="Training")):
+            real_imgs,_ = next(train_loader_iter)
             self.dis_opt.zero_grad()
             images_len = len(real_imgs)
             real_imgs  = real_imgs.to(self.device)
