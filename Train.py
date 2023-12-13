@@ -154,9 +154,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--cfg", type = str, default = "config/style_config.yaml", help = "cfg.yaml")  
     parser.add_argument("--pretrained", type = bool, default = False, help = "Resume trainin")  
-    parser.add_argument("--weights-path", type = str, default = None, help = "weights path")
-    parser.add_argument("--dataset-path", type = str, default = None, help = "dataset_path")  
-    parser.add_argument("--max-scale", type = int, default = 5, help = "max-scale")  
+    parser.add_argument("--weights_path", type = str, default = None, help = "weights path")
+    parser.add_argument("--dataset_path", type = str, default = None, help = "dataset_path")  
+    parser.add_argument("--max_scale", type = int, default = 5, help = "max-scale")  
 
     opt = parser.parse_args()
     cfg = parse_yaml(opt.cfg)
