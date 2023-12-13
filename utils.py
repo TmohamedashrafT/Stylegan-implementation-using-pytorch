@@ -1,12 +1,12 @@
 import torchvision.utils as vutils
 import numpy as np
-import matplotlib.pyplot as plt
 import random
 import torch
 import yaml
 import matplotlib
-from IPython.display import Image
-%matplotlib inline
+import PyQt4
+matplotlib.use('qt4agg')
+import matplotlib.pyplot as plt
 def visualize_output(fake_imgs):
   plt.figure(figsize=(10,10))
   plt.imshow(np.transpose(vutils.make_grid(fake_imgs.detach().cpu(), normalize=True),(1,2,0)))
