@@ -3,7 +3,7 @@
 
 import torch
 import torch.nn as nn
-
+import math
 
 # for equaliaeed-learning rate.
 class EqualizedConv2d(nn.Module):
@@ -156,7 +156,7 @@ class EqualLR:
         weight = getattr(module, self.name + '_orig')
         fan_in = weight.data.size(1) * weight.data[0][0].numel()
 
-        return weight * sqrt(2 / fan_in)
+        return weight * math.sqrt(2 / fan_in)
 
     @staticmethod
     def apply(module, name):
